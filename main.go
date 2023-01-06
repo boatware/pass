@@ -35,29 +35,29 @@ func main() {
 		}
 	}
 
-	base := ""
-	if !opts.ExcludeNumbers {
-		base += "0123456789"
-	}
-
-	if !opts.ExcludeUppercase {
-		base += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	}
-
-	if !opts.ExcludeLowercase {
-		base += "abcdefghijklmnopqrstuvwxyz"
-	}
-
-	if !opts.ExcludeSymbols {
-		base += "!@#$%^&*()_+-=[]{}|;':,./<>?`~"
-	}
-
 	for i := 0; i < opts.Iterations; i++ {
-		fmt.Println(GeneratePassword(base, opts.Length))
+		fmt.Println(GeneratePassword(opts.Length, opts.ExcludeNumbers, opts.ExcludeUppercase, opts.ExcludeLowercase, opts.ExcludeSymbols))
 	}
 }
 
-func GeneratePassword(base string, length int) string {
+func GeneratePassword(length int, excludeNumbers bool, excludeUppercase bool, excludeLowercase bool, excludeSymbols bool) string {
+	base := ""
+	if !excludeNumbers {
+		base += "0123456789"
+	}
+
+	if !excludeUppercase {
+		base += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	}
+
+	if !excludeLowercase {
+		base += "abcdefghijklmnopqrstuvwxyz"
+	}
+
+	if !excludeSymbols {
+		base += "!@#$%^&*()_+-=[]{}|;':,./<>?`~"
+	}
+
 	if base == "" {
 		fmt.Println("Congratulations, you just tried to generate a password with no available characters.")
 		os.Exit(1)
